@@ -1,3 +1,22 @@
+/*
+Approach: Use Stack
+
+Iterate through the given number from left to right, one digit at a time.
+while k> && stack is not empty and top element in the stack is greater than current digit
+If yes then, pop out the top element from the stack.
+Reduce the k by 1.
+Push the current digit to stack.
+while k is greater than 0.
+pop-out elements from the stack.
+Reduce the k by 1
+Pull all the digits from the stack and construct the number and reverse it, this will be the final answer. (if there are 0 at the start of the answer, remove those).
+See the code below for more understanding.
+
+
+
+
+*/
+
 class Solution {
     public String removeKdigits(String num, int k) {
         int n =  num.length();
