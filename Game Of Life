@@ -1,0 +1,103 @@
+
+public class GameOfLife {
+    public static void main(String []arg){
+        int matrix[][]= { {0,1,0}, {0,0,1},
+            {1,1,1},
+            {0,0,0}};
+        gameOfLife(matrix);
+        for(int i= 0;i<matrix.length;i++){
+            for(int j =0;j<matrix[0].length;j++){
+                System.out.print(matrix[i][j] +" ");
+            }
+            System.out.println(" ");
+        }
+    }
+
+    private static void gameOfLife(int[][] board) {
+        if (board.length == 0) return;
+
+        // The solution matrix
+        int[][] sol = new int[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                int neighbors = countNeighbors(i, j, board);
+                switch(neighbors) {
+                    case 0:
+                    case 1:
+                        // Having less than 2 neighbors fall under the same
+                        // rule so just let the cases fall through each other
+                        sol[i][j] = 0;
+                        break;
+                    case 2:
+                        sol[i][j] = board[i][j] == 1 ? 1 : 0;
+                        break;
+                    case 3:
+                        // If a cell has three neighbors and it is equal to 0
+                        // then it becomes a live cell and set to 1 in the solution
+                        // matrix, if it is alread a live cell then it stays that way
+                        sol[i][j] = 1;
+                        break;
+                    default:
+                        // Default considers the case of having more than three neighbors
+                        sol[i][j] = 0;
+                }
+            }
+        }
+
+        // Set the values in the original 2D array to the values in the
+        // solution array.
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                board[i][j] = sol[i][j];
+            }
+        }
+    }
+
+    //  The following methods could be made into one but
+    //  I seperated them so it's easy to know what is being checked
+    private static int countNeighbors(int row, int col, int[][]board) {
+        int neighbors = 0;
+        neighbors += checkAbove (row, col, board);
+        neighbors += checkUpperLeft (row, col ,board);
+        neighbors += checkUpperRight (row, col, board);
+        neighbors += checkBelow (row, col, board);
+        neighbors += checkLowerLeft (row, col, board);
+        neighbors += checkLowerRight (row, col, board);
+        neighbors += checkLeft (row, col, board);
+        neighbors += checkRight (row, col, board);
+        return neighbors;
+    }
+
+    private static int checkAbove(int row, int col, int[][] board) {
+        return row > 0 ? board[row-1][col] : 0;
+    }
+
+    private static int checkUpperLeft(int row, int col, int[][] board) {
+        return row > 0 && col > 0 ? board[row-1][col-1] : 0;
+    }
+
+    private static int checkUpperRight(int row, int col, int[][] board) {
+        return row > 0 && col < board[row].length-1 ? board[row-1][col+1] : 0;
+    }
+
+    private static int checkBelow(int row, int col, int[][] board) {
+        return row < board.length-1 ? board[row+1][col] : 0;
+    }
+
+    private static int checkLowerLeft(int row, int col, int[][] board) {
+        return row < board.length-1 && col > 0 ? board[row+1][col-1] : 0;
+    }
+
+    private static int checkLowerRight(int row, int col, int[][] board) {
+        return row < board.length-1 && col < board[row].length-1 ? board[row+1][col+1] : 0;
+    }
+
+    private static int checkLeft(int row, int col, int[][] board) {
+        return col > 0 ? board[row][col-1] : 0;
+    }
+
+    private static int checkRight(int row, int col, int[][] board) {
+        return col < board[row].length-1 ? board[row][col+1] : 0;
+    }
+}
+
