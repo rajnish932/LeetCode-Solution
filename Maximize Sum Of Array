@@ -1,0 +1,26 @@
+class Solution {
+    public int largestSumAfterKNegations(int[] A, int K) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(); 
+		for (int x : A) 
+			pq.add(x); 
+
+		// Do k negations by removing a minimum element k times 
+		while (K-- > 0) 
+		{ 
+			// Retrieve and remove min element 
+			int temp = pq.poll(); 
+
+			// Modify the minimum element and add back 
+			// to priority queue 
+			temp *= -1; 
+			pq.add(temp); 
+		} 
+
+		// Compute sum of all elements in priority queue. 
+		int sum = 0; 
+		for (int x : pq) 
+			sum += x; 
+		return sum; 
+
+    }
+}
