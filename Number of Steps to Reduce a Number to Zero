@@ -1,0 +1,20 @@
+ class Solution {
+    public int numberOfSteps (int num) {
+        int eCount = 0;
+        int oCount = 0;
+       while(num>0){
+        if(num %2 == 0) {
+            eCount++;
+             num /= 2;   
+                         }
+        else {
+            num = num-1;
+            oCount++;
+              }
+           
+       
+        }
+        return eCount+oCount;
+        
+    }
+}
