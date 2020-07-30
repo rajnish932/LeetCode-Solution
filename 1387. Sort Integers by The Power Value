@@ -1,0 +1,45 @@
+class Solution {
+    public int getKth(int lo, int hi, int k) {
+        
+        List<PowerValue> list = new ArrayList<PowerValue>();
+        
+        int steps = 0;
+        //Calculate number of steps required to get to 1 for each value and store in Arraylist
+        for(int i = lo;i<= hi;i++){
+            int num = i;
+            while(num > 1){
+                steps++;
+                num = (num % 2 == 0) ? num / 2 : num * 3 + 1;
+            }
+            list.add(new PowerValue(i,steps));
+            steps = 0;
+        }
+        
+        //Sort Arraylist by their step value in ascending order
+        Collections.sort(list, (o1, o2) -> o1.getValue() - o2.getValue());
+
+        //return k-1 index
+        return list.get(k-1).getIndex();
+        
+    }
+
+class PowerValue {
+    int index;
+    int value;
+    
+    PowerValue(int index, int value){
+        this.index = index;
+        this.value = value;
+    }
+    
+    public int getIndex(){
+        return this.index;
+    }
+    
+    public int getValue(){
+        return this.value;
+    }
+
+}   
+    
+}
