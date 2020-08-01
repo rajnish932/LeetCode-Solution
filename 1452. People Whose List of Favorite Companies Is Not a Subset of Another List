@@ -1,0 +1,26 @@
+class Solution {
+    public List<Integer> peopleIndexes(List<List<String>> favoriteCompanies) {
+        
+        
+         Set<String>[] comp = new HashSet[favoriteCompanies.size()];
+        for(int i =0;i<favoriteCompanies.size();i++){
+            comp[i] = new HashSet(favoriteCompanies.get(i));
+            
+        }
+        for(int i =0;i<comp.length-1;i++){
+         
+
+            for(int j = i+1;j<comp.length;j++){
+             
+
+                if(comp[i].size()>comp[j].size()){
+                    if(comp[i].containsAll(comp[j]))
+                    comp[j] = new HashSet<>();
+                   
+                }  else{
+                    if(comp[j].containsAll(comp[i]))
+                        comp[i] = new HashSet<>();
+                       
+                }
+            }
+        }
