@@ -1,0 +1,44 @@
+class Solution {
+    public String rankTeams(String[] votes) {
+        
+         int length = votes[0].length(); 
+        Map<Character, int[]> map = new HashMap<>();
+
+     
+        for (String vote : votes) {
+            for (int i = 0; i < length; i++) {
+                char c = vote.charAt(i);
+                map.putIfAbsent(c, new int[length]);
+                map.get(c)[i]++; 
+            }
+        }
+
+        PriorityQueue<Character> pq = new PriorityQueue<>(new Comparator<Character>(){
+        @Override
+        public int compare(Character a, Character b) {
+            int[] aRank = map.get(a);
+            int[] bRank = map.get(b);
+
+            for (int i = 0; i < length; i++) {
+                if (aRank[i] != bRank[i]) {
+                    return bRank[i] - aRank[i];
+                }
+            }
+            return a - b; 
+            
+        }
+        });
+
+        for (Map.Entry<Character, int[]> entry : map.entrySet()) {
+            pq.offer(entry.getKey());
+        }
+
+        StringBuilder sb = new StringBuilder(); // Generate the result
+        while (!pq.isEmpty()) {
+            sb.append(pq.poll());
+        }
+
+        return sb.toString();
+        
+    }
+}
