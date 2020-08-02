@@ -1,0 +1,22 @@
+class Solution {
+    public int minDifference(int[] nums) {
+        Arrays.sort(nums);
+        int min = Integer.MAX_VALUE;
+        int n = nums.length;
+        if(n<=4) return 0;
+    // There are 4 possibilites 
+  
+   // 3 Right shift & 1 Left Shift
+        min = Math.min(min, nums[n-4]-nums[0]);
+  // 3 Left Shift and 1 Right Shift
+         min = Math.min(min,nums[n-1]-nums[3]);
+    // 2 Left & 1 Right Shift
+        min = Math.min(min,nums[n-3]-nums[1]);
+   // 2 Right & 1 Left shift
+        
+        min = Math.min(min, nums[n-2]-nums[2]);
+        
+        return min;
+        
+    }
+}
