@@ -1,0 +1,35 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length <= 1) return intervals;
+// Sort two dimentional array
+        Arrays.sort(intervals,(a,b) ->a[0]-b[0]);
+        List<int[]> result = new ArrayList<>();
+        int[] newInterval = intervals[0];
+        result.add(newInterval);
+
+
+
+        for(int []interval:intervals){
+ // Overlapping intervals , move the end if needed
+         if(interval[0]<= newInterval[1]){
+            newInterval[1]= Math.max(newInterval[1],interval[1]);
+         }
+  // Disjoint intervals , add the new interval to the list
+      else{
+          newInterval = interval;
+          result.add(newInterval);
+         }
+        }
+//        for(int[] i:result){
+//            System.out.println(Arrays.toString(i));
+//        }
+
+
+
+//        for(int i= 0;i<newInterval.length;i++){
+//            System.out.println(newInterval[i]);
+//        }
+        return  result.toArray(new int[0][]);
+        
+    }
+}
