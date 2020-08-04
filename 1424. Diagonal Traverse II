@@ -1,0 +1,33 @@
+class Solution {
+    public int[] findDiagonalOrder(List<List<Integer>> nums) {
+        class comp implements Comparator<List<Integer>>{
+            public int compare(List<Integer> a, List<Integer> b){
+                if (a.get(0).equals(b.get(0))) return b.get(1).compareTo(a.get(1));
+                return a.get(0).compareTo(b.get(0));
+            }
+        }
+
+        List<List<Integer>> list = new ArrayList<>();
+        
+        for (int i = 0; i < nums.size(); i++){
+            for (int j = 0; j < nums.get(i).size(); j++){
+                List<Integer> element = new ArrayList<>();
+                element.add(i+j);
+                element.add(i);
+                element.add(nums.get(i).get(j));
+                list.add(element);
+            }
+        }
+
+
+        Collections.sort(list, new comp());
+        int[] res = new int[list.size()];
+        for (int i = 0; i < res.length; i++){
+            int num = list.get(i).get(2);
+            res[i] = num;
+        }
+        return res;
+    }
+}
+
+        
