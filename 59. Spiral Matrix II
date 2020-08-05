@@ -1,0 +1,44 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+         if(n <= 0) return new int[][]{{0}};
+        if(n == 1) return new int[][]{{1}};
+
+        int top = 0;
+        int right = 0;
+        int bottom = n-1;
+        int left = n-1;
+
+        int totalLenght = n*n-1;
+
+        int size = 1;
+        int [][]result = new int[n][n];
+        while(size <= totalLenght){
+            for(int i = top;i<= bottom;i++){
+                result[right][i] = size++;
+            }
+            right++;
+
+            for(int i = right;i<= left;i++){
+                result[i][bottom] = size++;
+            }
+            bottom--;
+
+            for(int i = bottom ;i>= top;i--){
+                result[left][i] = size++;
+            }
+            left--;
+
+            for(int i = left;i>= right;i--){
+                result[i][top] = size ++;
+            }
+            top++;
+
+            if(top == bottom && left == right){
+                result[top][left]= size++;
+                break;
+            }
+
+        }
+        return result;
+    }
+}
