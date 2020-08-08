@@ -1,0 +1,30 @@
+public static void main(String []arg){
+    int [] A = {1,2,5};
+    int []B = {2,4};
+    int[] arr =  fairCandySwap(A, B);
+    for(int i:arr){ System.out.print(i+" ");}
+}
+    public static int[] fairCandySwap(int[] A, int[] B) {
+    int aTotal = 0;
+    int bTotal = 0;
+        for(int i : A) aTotal +=i;
+        for(int i : B) bTotal +=i;
+
+    int[] result = new int[2];
+
+
+        for(int i = 0; i <A.length; i++) {
+        for(int j =0; j < B.length; j++) {
+            int aNow = aTotal - A[i] + B[j];
+            int bNow = bTotal - B[j] + A[i];
+            if(aNow == bNow) {
+                result[0] = A[i];
+                result[1] = B[j];
+                break;
+            }
+        }
+    }
+
+        return result;
+}
+}
