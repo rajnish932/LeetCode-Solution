@@ -1,0 +1,17 @@
+ private static int absDiffSum(List<Integer> list) {
+        int sum =0;
+        int arr[] = list.stream().mapToInt(i ->i).toArray();
+        int n = arr.length;
+        Arrays.sort(arr);
+ // cal sum of first two element
+
+      sum += Math.abs (arr[0]-arr[1]);
+  // sum of last two element
+   sum += Math.abs(arr[n-2]-arr[n-1]);
+// Sum of reamining element
+
+   for(int i =1;i<n-2;i++) {
+       sum += Math.abs(arr[i] - arr[i +1]);
+   }
+return sum;
+
