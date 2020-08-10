@@ -1,0 +1,13 @@
+class Solution {
+    public char findTheDifference(String s, String t) {
+        
+        char []ch = (s+t).toCharArray();
+        char res = ch[0];
+        
+        for(int i =1;i<ch.length;i++){
+            res ^= ch[i];
+        }
+        return res;
+        
+    }
+}
