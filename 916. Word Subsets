@@ -1,0 +1,27 @@
+ List<String> ans = new ArrayList<>();
+        int[] bMax = new int[26];
+        
+        for(int pos=0;pos<B.length;pos++){
+            int[] b = countLetters(B[pos]);
+            for(int i=0;i<26;i++){
+                bMax[i]=Math.max(bMax[i],b[i]);
+            }
+        }
+        
+        search:for(int pos=0;pos<A.length;pos++){
+            int[] a = countLetters(A[pos]);
+            for(int i=0;i<26;i++){
+                if(bMax[i]!=0 && a[i]<bMax[i])continue search;
+            }
+            ans.add(A[pos]);
+        }
+    
+        return ans;
+    }
+    
+    public int[] countLetters(String word){
+        int[] b = new int[26];
+        for(int pos=0;pos<word.length();pos++){
+            b[word.charAt(pos)-'a']++;
+        }
+        return b;
