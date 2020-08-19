@@ -1,0 +1,68 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    class Position {
+        int val;
+        int x;
+        int y;
+        
+        public Position(int val, int x, int y) {
+            this.val = val;
+            this.x = x;
+            this.y = y;
+        }
+    }
+    
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        // the idea is to put all nodes in a minHeap where nodes are
+       
+        PriorityQueue<Position> minHeap = new PriorityQueue<>(
+        (a,b) -> a.x == b.x ? 
+            (a.y == b.y ? a.val - b.val : b.y - a.y) :
+            a.x - b.x);
+        
+        // starting with root at 0, 0
+        int x = 0; 
+        int y = 0;
+        traverse(root, minHeap, 0, 0);
+        
+        List<List<Integer>> result = new ArrayList<>();
+        // as we remove nodes from the minHeap, prevX keeps record of the previous node's x position
+        // if the x position of two successive nodes is same, they need to be put in the same list
+        int prevX = 0;
+        while (!minHeap.isEmpty()) {
+            Position node = minHeap.remove();
+            List<Integer> sublist = new ArrayList<>();
+            sublist.add(node.val);
+            prevX = node.x;
+            while (!minHeap.isEmpty() && prevX == minHeap.peek().x) {
+                node = minHeap.remove();
+                sublist.add(node.val);
+            }
+            result.add(sublist);
+        }
+        
+        return result;
+    }
+    
+    private void traverse(TreeNode root, PriorityQueue<Position> minHeap, int x, int y) {
+        if (root == null) return;
+        
+        minHeap.add(new Position(root.val, x, y));
+        traverse(root.left, minHeap, x - 1, y - 1);
+        traverse(root.right, minHeap, x + 1, y - 1);
+    }
+}
