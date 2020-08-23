@@ -2,8 +2,7 @@ class Solution {
     public List<List<Integer>> minimumAbsDifference(int[] arr) {
         Arrays.sort(arr);
         int n = arr.length;
-        List<List<Integer>> list = new ArrayList<>();
-        
+        List<List<Integer>> list = new ArrayList<>(); 
         int d = Integer.MAX_VALUE;
         
  //Get the first min
