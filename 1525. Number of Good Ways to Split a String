@@ -1,0 +1,44 @@
+class Solution {
+    public int numSplits(String s) {
+        int n = s.length();
+        char[]str = s.toCharArray();
+        int ans=0;
+        if(n==1) return 0;
+        
+        //do the first partitioning and rest we will do by adjusting the boundries using for loop
+        //initially one element in left
+        int[] freqLeft = new int[26];
+        int countLeft = 1; //unique count 1
+        freqLeft[str[0]-'a']++;
+        
+        
+       
+        
+        
+        //rest elements are in right
+        int[] freqRight = new int[26];
+        int countRight = 0;
+        for(int i=1;i<str.length;i++){
+            freqRight[str[i]-'a']++;
+            
+           
+            
+            if(freqRight[str[i]-'a'] == 1) countRight++; //found unqiue element  
+        }
+        
+        if(countRight == countLeft) ans++; //check if the first partition is satisfying the condition
+        
+        //look for other possibilities by partitioning 
+        for(int i=1;i<n;i++){
+            //shift character at i'th position to the left side
+            //if count of character at right side becomes 0 then decrease unique count of right side
+            //if count of character at left side becomes 1 then increase unique count of left side
+            if(--freqRight[str[i]-'a'] == 0) countRight--;
+            if(++freqLeft[str[i]-'a'] == 1) countLeft++; 
+            if(countRight==countLeft) ans++;
+        }
+        
+        return ans;
+        
+    }
+}
