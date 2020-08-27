@@ -1,0 +1,36 @@
+class Solution {
+    public String toGoatLatin(String S) {
+                
+        String[] words = S.split(" ");
+        StringBuilder str = new StringBuilder();
+        int i = 0;
+        for(String word: words){
+            str.append(rulesWord(word,++i)).append(" ");
+        }
+        str.deleteCharAt(str.length()-1);
+        return str.toString();
+    }
+    
+
+    Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e','i','o','u','A','E','I','O','U'));
+    
+    private String rulesWord(String word, int index){
+        Character c = word.charAt(0);
+        StringBuilder str = new StringBuilder(word);
+       
+        // 2. If a word begins with a consonant (i.e. not a vowel), remove the first letter and append it to the end, then add "ma"
+        if(!vowels.contains(c)){
+            str.deleteCharAt(0);
+            str.append(c);
+        }
+         // 1.If a word begins with a vowel (a, e, i, o, or u), append "ma" to the end of the word. Same for 2.
+        str.append("ma");
+        
+        // 3. Add one letter 'a' to the end of each word per its word index in the sentence, starting with 1.
+        for(int i =0;i<index;i++){
+            str.append('a');
+        }
+        return str.toString();
+    
+    }
+}
