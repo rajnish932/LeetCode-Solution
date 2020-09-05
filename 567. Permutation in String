@@ -1,0 +1,36 @@
+  int start = 0, end = 0,charFreq = 0;
+        int match = 0;
+        boolean result = false;
+        Map<Character , Integer> map = new HashMap();
+
+        for(char c : s1.toCharArray())
+            map.put(c,map.getOrDefault(c, 0)+1);
+
+
+        for(end = 0;end<s2.length();end++){
+            char right = s2.charAt(end);
+            System.out.print(right + "    ");
+
+            if(map.containsKey(right)){
+                map.put(right, map.getOrDefault(right,0)-1);
+                 if(map.get(right) == 0) match++;
+            }
+            if(match == map.size()) return  true;
+
+            if(end >= s1.length()-1)
+            {
+                char left = s2.charAt(start);
+                if(map.containsKey(left))
+                {
+                    if(map.get(left) == 0)
+                        match--;
+                    map.put(left, map.getOrDefault(left,0)+1);
+                }
+                start++;
+            }
+        }
+
+        return result;
+    }
+
+        }
