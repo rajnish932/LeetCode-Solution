@@ -4,7 +4,6 @@ class Solution {
          int length = votes[0].length(); 
         Map<Character, int[]> map = new HashMap<>();
 
-     
         for (String vote : votes) {
             for (int i = 0; i < length; i++) {
                 char c = vote.charAt(i);
