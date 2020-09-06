@@ -1,0 +1,18 @@
+class Solution {
+    public int[] diStringMatch(String S) {
+        int index=1,highest=1,lowest=-1,length=S.length();
+        int[] result = new int[length+1];
+        for(int ch : S.toCharArray()){
+            if(ch=='I')
+                result[index++] = highest++;
+            else
+                result[index++] = lowest--;
+        }
+        lowest++;
+        for(index=0;index<=length;index++){
+            result[index] -= lowest;
+        }
+        return result;
+        
+    }
+}
