@@ -16,7 +16,7 @@ class Solution {
         @Override
         public int compare(Character a, Character b) {
             int[] aRank = map.get(a);
-            int[] bRank = map.get(b);
+           int[] bRank = map.get(b);
 
             for (int i = 0; i < length; i++) {
                 if (aRank[i] != bRank[i]) {
