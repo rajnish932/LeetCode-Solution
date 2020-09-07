@@ -1,0 +1,32 @@
+class Solution {
+    public String reformat(String s) {
+        int len = s.length();
+	if (len <= 1) return s;
+
+	char[] dest = new char[len];
+	int charCount = 0, numCount = 0;
+	for(int i=0; i<len; i++)
+		if (s.charAt(i) > 90) charCount++;
+		else numCount++;
+	
+	if(Math.abs(charCount - numCount) > 1)
+		return "";
+	
+	if (charCount > numCount) {
+		for(int i=0; i<len; i++)
+			if (s.charAt(i) > 90) 
+				dest[--charCount * 2] = s.charAt(i);
+			else
+				dest[--numCount * 2 + 1] = s.charAt(i);	
+	} else {
+		for(int i=0; i<len; i++)
+			if (s.charAt(i) > 90) 
+				dest[--charCount * 2 + 1] = s.charAt(i);
+			else
+				dest[--numCount * 2] = s.charAt(i);	
+	}
+
+	return new String(dest);
+        
+    }
+}
