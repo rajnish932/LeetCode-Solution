@@ -1,0 +1,16 @@
+class Solution {
+    public boolean canConstruct(String s, int k) {
+        int n = s.length();
+        if(n <  k) return false;
+        HashSet set = new HashSet();
+        for(int i = 0;i<n;i++){
+            if(set.contains(s.charAt(i))){
+                set.remove(s.charAt(i));
+            }
+            else{
+                set.add(s.charAt(i));
+            }
+        }
+        return set.size() <= k;
+    }
+}
