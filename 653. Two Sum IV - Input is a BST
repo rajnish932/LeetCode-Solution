@@ -1,0 +1,33 @@
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        ArrayList list1 = new ArrayList();
+        
+        ArrayList list2 = treeToList(root,list1);
+        int start =0;
+        int end = list2.size()-1;
+        
+        while(start < end){
+            if((int)list2.get(start) + (int)list2.get(end) == k) return true;
+            
+            if((int)list2.get(start) + (int)list2.get(end) > k) end--;
+            
+            if((int)list2.get(start) + (int)list2.get(end) < k) start++;
+            
+            
+        }
+        return false;
+        
+        
+    }
+    ArrayList<Integer> treeToList(TreeNode node, ArrayList<Integer> list){
+        // Base Condition
+        
+        if(node == null) return list;
+        treeToList(node.left ,list);
+        list.add(node.val);
+        treeToList(node.right, list);
+        
+         return list;
+    }
+   
+}
