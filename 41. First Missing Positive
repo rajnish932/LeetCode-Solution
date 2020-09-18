@@ -1,0 +1,26 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        Arrays.sort(nums);
+        
+        int index = 0;
+        
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] > 0) {
+                index = i;
+                break;
+            }
+        }
+        
+        int missingNum = 1;
+        
+        while(index < nums.length){
+            if( missingNum == nums[index]) {
+                missingNum++;
+                index++;
+            } else {
+                index++;
+            }
+        }
+        return missingNum;
+    }
+}
