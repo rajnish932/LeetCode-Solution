@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int rob(TreeNode root) {
+        if(root == null) return 0;
+        
+        int []result = robHelper(root);
+        return Math.max(result[0], result[1]);
+        
+    }
+    public int[] robHelper(TreeNode root){
+        if(root == null) return new int[2];
+        
+        int []left = robHelper(root.left);
+        int []right = robHelper(root.right);
+        
+        int []cur = new int[2];
+        cur[0] = root.val + left[1] + right[1];
+        cur[1] = Math.max(left[0] , left[1]) + Math.max(right[0] ,right[1]);
+        
+        return cur;
+    }
+}
+       
+//     if(root == null) return 0;
+        
+        
+//     if(root.left == null && root.right == null) return root.val;
+    
+//     // Case 1  Rob the root
+//         int leftMax = 0;
+//         int rightMax = 0;
+//         if(root.left != null){
+//             leftMax = rob(root.left.left) + rob(root.left.right);
+//         }
+//         if(root.right != null){
+//             rightMax = rob(root.right.right)+ rob(root.right.left);
+//         }
+//         int maxRoot = root.val + leftMax + rightMax;
+//   // Case 2 When root is not rob
+//         leftMax = rob(root.left);
+//         rightMax = rob(root.right);
+        
+//         int maxNoRoot = leftMax + rightMax;
+        
+//         return Math.max(maxRoot, maxNoRoot);
+//     }
+// }
+   
