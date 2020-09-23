@@ -16,6 +16,7 @@ class Solution {
         //      of right tree have to be mirror images 
         // 3 - right subtree of left tree and left subtree 
         //      of right tree have to be mirror images 
+        
         if (node1 != null && node2 != null && node1.val == node2.val) 
             return (isMirror(node1.left, node2.right)  && isMirror(node1.right, node2.left)); 
    
