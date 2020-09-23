@@ -1,0 +1,47 @@
+class Solution {
+    public int lengthOfLIS(int[] nums) 
+        { 
+          int n = nums.length;
+        int dp[][] = new int[n][n];
+            
+            return lengthOfLISHelper(-1,0,nums,dp);
+        }
+    private static int lengthOfLISHelper(int prev , int curr, int nums[], int dp[][]){
+        if(curr == nums.length) return 0;
+        
+        if(prev != -1 && dp[prev][curr] != 0) return dp[prev][curr];
+        
+        int op1 = 0;
+        if(prev == -1 || nums[prev] < nums[curr])
+            op1 = 1+lengthOfLISHelper(curr, curr+1, nums, dp);
+        
+        int op2 = lengthOfLISHelper(prev , curr+1, nums, dp);
+        
+        if(prev != -1) dp[prev][curr] = Math.max(op1, op2);
+        
+        return Math.max(op1, op2);
+    }
+//           int lis[] = new int[n]; 
+//           int i,j,max = 0; 
+  
+//           /* Initialize LIS values for all indexes */
+//            for ( i = 0; i < n; i++ ) 
+//               lis[i] = 1; 
+  
+//            /* Compute optimized LIS values in  
+//               bottom up manner */
+//            for ( i = 1; i < n; i++ ) 
+//               for ( j = 0; j < i; j++ )  
+//                          if ( arr[i] > arr[j] &&  lis[i] < lis[j] + 1) 
+//                     lis[i] = lis[j] + 1; 
+  
+//            /* Pick maximum of all LIS values */
+//            for ( i = 0; i < n; i++ ) 
+//               if ( max < lis[i] ) 
+//                  max = lis[i]; 
+  
+//             return max; 
+   // } 
+        
+   // }
+}
