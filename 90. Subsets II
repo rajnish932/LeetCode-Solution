@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> subsetsWithDupl = new ArrayList<>();
+        dfs(subsetsWithDupl, 0, nums, new ArrayList<>());
+         return subsetsWithDupl;
+        
+    }
+    
+    public void dfs(List<List<Integer>> subsetsWithDupl , int startIndex, int []nums, List<Integer> current){
+        subsetsWithDupl.add(new ArrayList<>(current));
+        
+        for(int i= startIndex ;i <nums.length;i++){
+            if(i > startIndex && nums[i] == nums[i-1]) continue;
+            current.add(nums[i]);
+            dfs(subsetsWithDupl , i+1, nums, current);
+            current.remove(current.size()-1);
+            
+        }
+        
+    }
+}
