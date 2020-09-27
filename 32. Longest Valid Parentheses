@@ -1,0 +1,35 @@
+
+import java.util.Stack;
+
+public class LongestVliadParenthesis32 {
+    public static  void main(String[] arg){
+        System.out.println(longestValidParentheses("(()))"));
+    }
+
+
+    public static  int longestValidParentheses(String s) {
+        Stack<Character> charactersStack =new Stack<>();
+        Stack<Integer> indexStack = new Stack<>();
+        indexStack.push(-1);
+        int max = 0;
+        for(int i =0;i<s.length();i++){
+            if(s.charAt(i) == '('){
+                charactersStack.push('(');
+                indexStack.push(i);
+            }
+            else{
+                if(!charactersStack.isEmpty() &&  charactersStack.peek() == '('){
+                    charactersStack.pop();
+                    indexStack.pop();
+                    max = Math.max(max, i - indexStack.peek());
+                }
+                else{
+                    indexStack.push(i);
+                }
+            }
+        }
+        return max;
+
+    }
+}
+
