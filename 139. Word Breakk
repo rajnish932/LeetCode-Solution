@@ -1,0 +1,21 @@
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        return isBreakable(0,s,wordDict,new HashMap<>());
+        
+    }
+    private static boolean isBreakable(int startIndex, String str, List<String> wordDict, Map<Integer, Boolean> map){
+        
+        if(startIndex == str.length()) return true;
+        boolean breakable = false;
+        
+         if(map.containsKey(startIndex)) return map.get(startIndex);
+        
+        for(int end = startIndex+1; end<= str.length(); end++){
+            String s = str.substring(startIndex, end); 
+            if(wordDict.contains(s) && isBreakable(end, str,wordDict, map))
+                breakable = true;
+        }
+        map.put(startIndex, breakable);
+        return breakable;
+    }
+}
