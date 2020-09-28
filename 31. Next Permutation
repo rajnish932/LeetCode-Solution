@@ -1,0 +1,46 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int len = nums.length;
+        int k = len-2;
+        
+        //Chack all element are in descending order or not 
+        // based on value of K . if k == -1 , then its desecding order
+        
+        while( k>=0 && nums[k] >= nums[k+1]) k--;
+        
+        // First possibilites , if number is in descending order, then 
+        // Next permutation is reverse of that number
+    
+      // Case 1  
+        if(k == -1){
+            reverseArray(0,len-1, nums);
+            return;
+        }
+        
+        
+     // Case 2   
+       // Secound possibilites number is neither ascending nor descending
+        // Divide number into two half
+        // Search number greater then first half in Right Part
+        for(int i = nums.length-1; i> k; i--){
+            if(nums[i] > nums[k]){
+                int temp = nums[i];
+                nums[i] = nums[k];
+                nums[k] = temp;
+                break;
+            }
+        }
+        reverseArray(k+1,len-1, nums);
+        
+    }
+    private void reverseArray(int startIndex , int endIndex, int []nums){
+        while(startIndex < endIndex){
+            
+        int temp = nums[startIndex];
+            nums[startIndex] = nums[endIndex];
+            nums[endIndex] = temp;
+            startIndex++;
+            endIndex--;
+    }
+    }
+}
