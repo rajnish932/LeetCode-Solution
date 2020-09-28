@@ -1,0 +1,36 @@
+class Solution {
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        Set<String> dict = new HashSet(wordDict);
+        Map<Integer, List<String>> cache = new HashMap();
+
+        return breakWord(s, 0, dict, cache);
+    }
+
+    public List<String> breakWord(String s, int start, Set<String> dict, Map<Integer, List<String>> cache) {
+        List<String> res = new ArrayList();
+
+        if (start == s.length()) {
+            res.add("");
+            return res;
+        }
+
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (dict.contains(s.substring(start, end))) {
+                List<String> list = new ArrayList();
+
+                if (cache.containsKey(end)) {
+                    list = cache.get(end);
+                }
+                else {
+                    list = breakWord(s, end, dict, cache);
+                }
+                 System.out.println(list+"  ");
+                for (String str : list) {
+                    res.add(s.substring(start, end) + (str.length() == 0 ? "" : " ") + str);
+                }
+            }
+        }
+        cache.put(start, res);
+        return res;
+    }
+}
