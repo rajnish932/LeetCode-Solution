@@ -1,0 +1,47 @@
+class Solution {
+    public void solve(char[][] board) {
+        // Edge case
+        if (board.length <= 2 || board[0].length <= 2)
+			return;
+        
+        // For Loop for First Row
+        for(int i =0; i< board[0].length;i++){
+            //Check for First row
+            if(board[0][i] == 'O')
+                DFS(board, 0,i);
+        
+             // Check for last row
+            if(board[board.length-1][i] == 'O')
+                DFS(board, board.length-1,i);
+        }
+        //Loop for First Column
+        for(int i =0 ;i<board.length; i++){
+            // Check First Column
+            if(board[i][0] == 'O')
+                DFS(board,i ,0);
+            //Check for Last Column
+            if(board[i][board[0].length-1] == 'O')
+                DFS(board, i, board[0].length-1);
+        }
+        
+       //In between then iterate over matrix
+        for(int i =0;i <board.length;i++){
+            for(int j =0 ;j<board[0].length;j++){
+                if(board[i][j] == '#')
+                    board[i][j] = 'O';
+                else if(board[i][j] == 'O')
+                    board[i][j] = 'X';
+            }
+        }
+        
+    }
+    private void DFS(char [][]board, int startIndex, int endIndex){
+        if(startIndex<0 ||startIndex >= board.length ||endIndex < 0 || endIndex >= board[0].length  || board[startIndex][endIndex] != 'O')
+            return;
+        board[startIndex][endIndex] = '#';
+        DFS(board, startIndex+1, endIndex);
+        DFS(board, startIndex-1, endIndex);
+        DFS(board, startIndex, endIndex+1);
+        DFS(board, startIndex, endIndex-1);
+    }
+}
