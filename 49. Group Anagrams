@@ -1,0 +1,46 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        int n = strs.length;
+        
+        List<List<String>> wordPharse = new ArrayList<>();
+        if(n == 0) return wordPharse;
+        
+
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        
+        for(String str :strs){
+            int count[] = new int[26];
+            for(int i =0;i<str.length();i++){
+               count[str.charAt(i) - 'a']++;
+            }
+            
+        
+        StringBuilder sb = new StringBuilder();
+        for(int c: count){
+            sb.append(c);
+            sb.append("#");
+        }
+            
+            
+            String rep = sb.toString();
+            
+            if(map.containsKey(rep)){
+                ArrayList<String> ana  = map.get(rep);
+                ana.add(str);
+                map.put(rep, ana);
+            }
+            else {
+                  ArrayList<String> anagram = new ArrayList<>();
+                   anagram.add(str);
+                   map.put(rep, anagram); 
+            }
+            
+            }
+        for(List<String> val :map.values()){
+                wordPharse.add(val);
+            }
+        
+        
+        return wordPharse;
+    }
+}
