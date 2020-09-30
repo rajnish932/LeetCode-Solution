@@ -1,0 +1,31 @@
+lass Solution {
+    public void rotate(int[][] matrix) {
+        // Only two steps to be followed
+        //1. Transpse of Matrix
+        //2. Reverse column
+        
+        
+        
+        //1. Transpose of matrix
+        int n = matrix.length;
+        for(int row =0;row<n; row++){ 
+            for(int column = row; column <n; column++){
+                int temp = matrix[row][column];
+                matrix[row][column] = matrix[column][row];
+                    matrix[column][row] =  temp;
+            }
+        }
+        
+        //2. Reverse column
+         for(int row =0;row<n; row++){ 
+            for(int column = 0; column <n/2; column++){
+                int temp = matrix[row][column];
+                matrix[row][column] = matrix[row][n - 1 -column];
+                
+                   matrix[row][n - 1 -column]=  temp;
+            }
+         }
+         
+        
+    }
+}
