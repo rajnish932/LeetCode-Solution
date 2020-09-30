@@ -1,0 +1,53 @@
+package com.lamresearch.dtocm.cProgramming.queue;
+
+import java.util.*;
+
+public class WordLadder {
+    public static void main(String []arg){
+        String beginWord = "hit";
+        String endWord = "cog";
+        List<String> wordList = Arrays.asList("hot","dot","dog","lot","log","cog");
+        System.out.println(ladderLength(beginWord, endWord, wordList));
+    }
+
+    private static int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if(!wordList.contains(endWord)) return 0;
+        Map<String, Boolean> map = new HashMap<>();
+        for(int i= 0;i<wordList.size(); i++){
+            map.put(wordList.get(i), false);
+        }
+        Queue<String> queue = new LinkedList<>();
+        int len = 1;
+        queue.add(beginWord);
+        map.put(beginWord, true);
+
+        // Iterate over QUEUE
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i=0;i<size; i++){
+                String removeString  = queue.poll();
+                if(removeString.equals(endWord))
+                    return len;
+               wordMathcer(removeString, queue, map);
+            }
+            len++;
+        }
+        return 0;
+    }
+
+    private static void wordMathcer(String removeString, Queue<String> queue, Map<String, Boolean> map) {
+    for(int i =0;i<removeString.length();i++){
+        char []word = removeString.toCharArray();
+        for(int j = 0;j<26;j++){
+            char ch = (char)('a' +j);
+            word[i] = ch;
+            String string = String.valueOf(word);
+
+            if(map.containsKey(string) && map.get(string) == false){
+                queue.add(string);
+                map.put(string, true);
+            }
+        }
+    }
+    }
+}
