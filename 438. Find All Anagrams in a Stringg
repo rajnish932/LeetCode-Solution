@@ -1,0 +1,66 @@
+package com.lamresearch.dtocm.cProgramming.string;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class AllAnagram {
+    public static void main(String []arg){
+        String s = "cbaebabacd";
+        String p = "abc";
+        System.out.print(findAnagrams(s, p));
+    }
+
+
+    public static List<Integer> findAnagrams(String s, String p) {
+        int start = 0;
+        int end = p.length()-1;
+
+        List<Integer> result = new ArrayList<>();
+        if(p.length() > s.length() || start > end) return result;
+
+        // Create Two hashMap one for s and another for p
+
+        HashMap<Character, Integer> hashmapS = new HashMap<>();
+        HashMap<Character, Integer> hashmapP = new HashMap<>();
+
+        // Count frequency of p
+        for(int i = 0;i< p.length(); i++){
+            hashmapP.put(p.charAt(i), hashmapP.getOrDefault(p.charAt(i),0)+1);
+        }
+
+        // Count frequency of s , but length is string p.
+        for(int i =0;i<p.length(); i++){
+            hashmapS.put(s.charAt(i), hashmapS.getOrDefault(s.charAt(i),0)+1);
+        }
+
+        if(hashmapS.equals(hashmapP))
+            result.add(start);
+
+        start++;
+        end++;
+
+        while(end < s.length()){
+
+            // add key for current
+            hashmapS.put(s.charAt(end ), hashmapS.getOrDefault(s.charAt(end ), 0)+1);
+
+            // Remove key from previous
+
+            char ch = s.charAt(start-1); {
+                if(hashmapS.containsKey(ch)) { System.out.println(hashmapS.put(ch ,hashmapS.get(ch)-1));}
+
+                if(hashmapS.get(ch) == 0)
+                    hashmapS.remove(ch);
+            }
+            if(hashmapS.equals(hashmapP))
+                result.add(start);
+
+            start++;
+            end++;;
+        }
+
+        return result;
+
+    }
+}
