@@ -27,6 +27,7 @@ class Solution {
         if (sum == node.val && node.left == null && node.right == null) {
             output.add(list);
         } else {
+        
             sum -= node.val;
             helper(node.left, sum, new ArrayList(list), output); 
             helper(node.right, sum, new ArrayList(list), output); 
