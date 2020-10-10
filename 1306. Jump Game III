@@ -1,0 +1,35 @@
+class Solution {
+    public boolean canReach(int[] arr, int start) {
+        Stack<Integer> stack = new Stack();
+        
+         // Create array to avoid repeating element
+            
+            int seen[] = new int[arr.length];
+            
+        stack.add(start);
+        
+        while(!stack.isEmpty()){
+            
+            int temp = stack.pop();
+            int leftmove = temp - arr[temp];
+            int rightmove = temp + arr[temp];
+           
+            if(leftmove>=0 && leftmove <arr.length && seen[leftmove] == 0 ){
+                stack.add(leftmove);
+                seen[leftmove]  = 1;
+                 if(arr[leftmove] == 0) return true;
+            }
+            
+             if(rightmove>=0 && rightmove <arr.length && seen[rightmove] == 0 ){
+                stack.add(rightmove);
+                seen[rightmove] = 1;
+               if(arr[rightmove] == 0 ) 
+                return true;
+             }
+            
+            
+        }
+        return false;
+        
+    }
+}
