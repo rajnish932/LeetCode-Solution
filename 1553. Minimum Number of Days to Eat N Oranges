@@ -1,0 +1,53 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class MinimumNoOfDays {
+    public static void main(String []arg){
+        System.out.println(minDays(10));
+
+    }
+    public static int minDays(int n) {
+        int days = 0;
+        int divByOne = Integer.MAX_VALUE;
+        int divByTwo = Integer.MAX_VALUE;
+        int divByThree = Integer.MAX_VALUE;
+
+        Queue queue = new LinkedList<>();
+        queue.add(n);
+        HashSet<Integer> set = new HashSet<>();
+
+
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            days++;
+
+            for(int i =0;i<size; i++){
+                int temp = (int)queue.poll();
+                divByOne = temp-1;
+                queue.add(divByOne);
+
+                if(temp %2 == 0 && set.add(temp/2)){
+                    divByTwo = temp /2;
+                    queue.add(divByTwo);
+                }
+
+                if(temp % 3 == 0 && set.add(temp - 2*(temp/3))){
+                    divByThree = temp - 2*(temp/3);
+                    queue.add(divByThree);
+                }
+
+                if(divByOne == 0|| divByTwo == 0|| divByThree == 0) return days;
+
+            }
+        }
+
+
+        System.out.println("Welcome to Bangalore ");
+
+        return days;
+
+    }
+}
+
