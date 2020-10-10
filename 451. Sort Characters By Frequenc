@@ -1,0 +1,34 @@
+class Solution 
+{
+public String frequencySort(String s) 
+{
+    //1. Count number of Frequence
+    
+    int count[] = new int[256];
+    for(int i =0;i<s.length();i++){
+        count[s.charAt(i)]++;
+    }
+    
+    //2. Sort then based on frequency and store in priorityQueue
+    
+    PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> count[b] - count[a]);
+    for(int i =0;i<count.length;i++)
+        pq.add((char)i);
+    
+    // 3. Iterate queue and stored in StringBuilder
+    
+    StringBuilder sb = new StringBuilder();
+    while(!pq.isEmpty()){
+        char ch = pq.poll();
+        int times = count[ch];
+        for(int i =0 ;i<times; i++){
+            sb.append(ch);
+        }
+    }
+    return sb.toString();
+    
+    
+
+    
+}
+}
