@@ -1,0 +1,60 @@
+class Solution {
+    public List<List<Integer>> pacificAtlantic(int[][] matrix) {
+        List<List<Integer>> cord = new ArrayList<>();
+        if(matrix.length == 0) return cord;
+        
+        int row = matrix.length;
+        int col = matrix[0].length;
+        
+        int [][]paci = new int[row][col];
+        int [][] alt = new int[row][col];
+        
+        // First row for pacific        
+        for(int i =0;i<col;i++)
+            dfs(matrix, 0, i,paci,Integer.MIN_VALUE);
+        
+         // First col for pacific        
+        for(int i =0;i<row;i++)
+            dfs(matrix, i, 0,paci,Integer.MIN_VALUE);
+        
+         //Last row for pacific
+        for(int i =0;i<col;i++)
+            dfs(matrix, row-1,i,alt,Integer.MIN_VALUE);
+        
+        
+        // Last col for altantic        
+        for(int i =0;i<row;i++)
+            dfs(matrix, i, col-1,alt,Integer.MIN_VALUE);
+        
+        // After filling matrix , compare two matrix i.e paci and alt
+        
+        for(int i =0;i<paci.length;i++){
+            for(int j =0;j<paci[0].length;j++){
+                if(paci[i][j] == 1 && alt[i][j] == 1){
+                    List<Integer>list = new ArrayList<>();
+                    list.add(i);
+                    list.add(j);
+                    cord.add(list);
+                }
+            
+        }
+            
+        }
+        return cord;
+        
+    }
+    public static void  dfs(int [][]matrix, int row, int col,int[][]temp , int pre ){
+        
+        if(row <0 || col< 0 || row > matrix.length-1 || col> matrix[0].length-1) return;
+     else  if(pre > matrix[row][col]) return;
+        
+        else if(temp[row][col] == 1) return;
+        temp[row][col] = 1;
+        
+        dfs(matrix,row+1 ,col,temp,matrix[row][col]);
+         dfs(matrix,row-1 ,col,temp,matrix[row][col]);
+         dfs(matrix,row,col+1,temp,matrix[row][col]);
+         dfs(matrix,row,col-1,temp,matrix[row][col]);
+        
+    }
+}
