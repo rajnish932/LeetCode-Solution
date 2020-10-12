@@ -1,0 +1,43 @@
+class Solution {
+    public int longestIncreasingPath(int[][] matrix) {
+         if(matrix.length == 0) return 0;
+	
+	// Create 2D Array to store count of each connected component from current location
+        int [][]dp = new int[matrix.length][matrix[0].length];
+        
+        //Iterate through matrix and apply through DFS on each element
+        int max = 0;
+        for(int row = 0;row<matrix.length;row++){
+            for(int col = 0;col<matrix[0].length;col++){
+			
+			// Check dp table is 0, then explore all possibilties. 
+			// If not retrun max 
+                if(dp[row][col] == 0){
+                    
+                    DFS(matrix, row, col, Integer.MIN_VALUE,dp);
+                     max = Math.max(max,dp[row][col] );
+                }
+            }
+        }
+        return max;
+        
+    }
+    private static int DFS(int [][]matrix, int row, int col, int pre,int [][]dp){
+        //Base Condition 
+        if(row< 0 || col <0 || row > matrix.length-1 || col > matrix[0].length-1) return 0;
+        else if(pre >= matrix[row][col]) return 0;
+        else if(dp[row][col] != 0) return dp[row][col];
+        
+        
+         int path1 =  DFS(matrix, row-1, col,matrix[row][col], dp);
+         int path2 =  DFS(matrix, row+1, col, matrix[row][col], dp);
+         int path3 =  DFS(matrix, row, col-1,matrix[row][col], dp);
+         int path4 =  DFS(matrix, row, col+1, matrix[row][col], dp);
+        
+        int max1 = Math.max(path1, path2);
+        int max2 = Math.max(path3, path4);
+        dp[row][col] = 1 + Math.max(max1, max2);
+        
+        return dp[row][col];
+    }
+}
