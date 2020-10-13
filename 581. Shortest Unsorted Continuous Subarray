@@ -1,16 +1,33 @@
 class Solution {
     public int findUnsortedSubarray(int[] nums) {
-        int snums[] = nums.clone();
-        Arrays.sort(snums);
-        int start = snums.length,end  = 0;
         
-        for(int i = 0;i<snums.length;i++){
-            if(snums[i] != nums[i]){
-                start = Math.min(start ,i);
-                end  = Math.max(end ,i);
+        // Clone nums into clone
+        int clone[] = nums.clone();
+        
+        // Sort clone element
+        Arrays.sort(clone);
+        int start = 0,end  = 0;
+        
+        
+        // Arrays is in Increasing order
+        if(Arrays.equals(clone, nums)) return 0;
+        
+        //Find First unmatched element index
+        for(int i = 0;i<nums.length;i++){
+            if(clone[i] != nums[i]){
+                start = i;
+                break;       
             }
         }
-        return (end - start >=0 ? end-start +1 :0);
+        
+          //Find Last unmatched element index
+        for(int i = nums.length-1;i>=0;i--){
+            if(clone[i] != nums[i]){
+                end = i;
+                break;       
+            }
+        }
+        return end-start + 1;
         
     }
 }
