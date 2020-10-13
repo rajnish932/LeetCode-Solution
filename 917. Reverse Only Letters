@@ -1,0 +1,64 @@
+package com.lamresearch.dtocm.cProgramming.string;
+
+import java.util.Stack;
+
+public class ReverseOnlyLettres {
+    public static void main(String []arg){
+        String str = "Test1ng-Leet=code-Q!";
+        System.out.println(reverseOnlyLetters(str));
+    }
+
+    private static String  reverseOnlyLetters(String S) {
+
+    if(S == null) return null;
+
+    StringBuilder sb = new StringBuilder();
+    Stack<Character> stack = new Stack<>();
+
+    for(int i =0;i< S.length();i++){
+
+        if(Character.isLetter(S.charAt(i))){
+            stack.add(S.charAt(i));
+        }
+    }
+
+        for(int i =0;i< S.length();i++){
+
+            if(Character.isLetter(S.charAt(i))){
+                sb.append(stack.pop());
+            }
+            else {
+                sb.append(S.charAt(i));
+            }
+        }
+
+
+
+
+//    int startIndex = 0;
+//    int endIndex = S.length() - 1;
+//
+//        while(startIndex < S.length() && endIndex >= 0) {
+//        char charStart = S.charAt(startIndex);
+//        char charEnd = S.charAt(endIndex);
+//
+//        if((charStart  >= 'a' && charStart <= 'z') || (charStart >= 'A' && charStart <= 'Z')) {
+//            if((charEnd  >= 'a' && charEnd <= 'z') || (charEnd >= 'A' && charEnd <= 'Z')) {
+//                sb.append(charEnd);
+//                startIndex++;
+//            }
+//
+//            endIndex--;
+//        } else {
+//            sb.append(charStart);
+//            startIndex++;
+//        }
+//    }
+//
+//         while(startIndex < S.length()) {
+//        sb.append(S.charAt(startIndex++));
+//    }
+
+        return sb.toString();
+}
+}
