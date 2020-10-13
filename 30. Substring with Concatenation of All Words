@@ -1,0 +1,53 @@
+class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> result = new ArrayList<>();
+         if(s.length() == 0 || words.length == 0) return result;
+        
+        // Step1 Count frequency of all words in String Array
+        HashMap<String, Integer> map1 = new HashMap<>(); // foo 1, bar 1
+        for(int i =0;i<words.length;i++)
+            map1.put(words[i], map1.getOrDefault(words[i],0) +1);
+        
+        
+        //Step 2 Iterate String from 0th Index to length of wards
+        // barfoothefoobarman
+        //barfoo -- --Length of Words
+        //arfoot
+        //rfooth ...etc
+        
+        
+        int totalLength = words.length * words[0].length(); // 2 * 3 = 6
+        int singleLength = words[0].length(); // 3
+        
+        int i =0;
+        while(i<= s.length() - totalLength){
+            String sub = s.substring(i, i+totalLength); // (0,6) i.e  barfoo
+            HashMap<String, Integer> map2 = new HashMap<>(); 
+            
+            
+         //Step 3 Devide String in step2 in equals size and Store in another HashMap2
+        // bar foo
+        //arf oot
+        //rfo oth
+            int k = 0;
+            int n = 0;
+            while(k < words.length){
+                String tempSub = sub.substring(n ,n+singleLength); //(0,3) i.e bar foo
+                n = n+singleLength;
+                map2.put(tempSub, map2  .getOrDefault(tempSub ,0) +1);
+                
+                
+                k++;
+            }
+            
+             // Step 3 Extension Check weather it equals to Map1 or not if Yes then Store index, 
+             //Otherwise leave that Index.
+            
+            
+            if(map1.equals(map2)) result.add(i);
+            i++; 
+        }
+        
+       return result; 
+    }
+}
