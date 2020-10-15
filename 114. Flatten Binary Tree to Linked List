@@ -26,6 +26,7 @@ class Solution {
             currentNode.right = tempNode;
             
         }
+        
         if(root.right != null){
             flatten(root.right);
             
