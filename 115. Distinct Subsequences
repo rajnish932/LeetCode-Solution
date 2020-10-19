@@ -1,0 +1,32 @@
+package com.lamresearch.dtocm.cProgramming.string;
+
+public class DistinctSubsequence {
+    public static void main(String []arg){
+        String s = "rabbbit";
+        String t = "rabbit";
+        System.out.print(numDistinct(s,t));
+
+    }
+    public static int numDistinct(String s, String t) {
+        int slen = s.length();
+        int tlen = t.length();
+
+        int dp[][] = new int[tlen +1][slen +1];
+
+        // fill First row with 1
+        for(int col =0 ;col<=slen;col++)
+            dp[0][col] = 1;
+
+        for(int row = 0; row<tlen;row++){
+            for(int col = 0;col <slen;col++){
+                if(t.charAt(row) == s.charAt(col)){
+                    dp[row+1][col+1] = dp[row][col] + dp[row +1][col];
+                } else{
+                    dp[row+1][col+1] = dp[row+1][col];
+                }
+            }
+        }
+        return dp[tlen][slen];
+
+    }
+}
