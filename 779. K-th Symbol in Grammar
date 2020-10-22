@@ -1,0 +1,15 @@
+class Solution {
+    public int kthGrammar(int N, int K) {               
+        return kthGrammarRecur(N, K) == true ?1:0;
+    }
+
+    public static boolean kthGrammarRecur(int n, int k) {
+        if (n == 1 && k == 1) return false;
+
+        int l = (int) Math.pow(2, n - 1);
+        System.out.println(l);
+        if (k <= l / 2)
+            return kthGrammarRecur(n - 1, k);
+        else return !kthGrammarRecur(n - 1, k - l / 2);
+    }
+}
