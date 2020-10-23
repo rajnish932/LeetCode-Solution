@@ -17,7 +17,6 @@ class Solution {
     public int maxDepth(TreeNode root) {
        if(root == null) return 0;
         
-        
         int lmax = maxDepth(root.left);
         int rmax = maxDepth(root.right);
     
