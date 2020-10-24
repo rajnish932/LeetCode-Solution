@@ -1,0 +1,29 @@
+class Solution {
+    public int numSubmat(int[][] mat) {
+        int row = mat.length;
+        int col = mat[0].length;
+         
+        for(int r= 0; r<row;r++){
+            for(int c = col-2; c>=0; c--){
+                if(mat[r][c] == 1){
+                    mat[r][c] += mat[r][c+1];
+                }
+            }
+        }
+        int count = 0;
+        for(int r= 0; r<row;r++){
+            for(int c = 0; c < col; c++){
+                
+                int min_width = mat[r][c];
+                for(int d = r;d<row;d++){
+                    if(mat[d][c] ==0){ break;}
+                    
+                    min_width = Math.min(min_width, mat[d][c]);
+                    count += min_width;
+                } 
+            }
+        }
+        return count;
+        
+    }
+}
