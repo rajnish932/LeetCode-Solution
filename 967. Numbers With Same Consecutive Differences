@@ -1,0 +1,30 @@
+class Solution {
+    public int[] numsSameConsecDiff(int n, int k) {
+        List<Integer> result = new ArrayList();
+        for(int i = 1;i<= 9;i++)
+            dfs(n,k, i, 0, i, result);
+        
+        int ans[] = new int[result.size()];
+        for(int i =0;i<result.size();i++)
+            ans[i] = result.get(i);
+        
+        return ans;
+        
+    }
+    private void dfs(int n, int k, int current, int i, int prev, List<Integer>result){
+        
+        if(i == n-1){
+            result.add(current);
+            return;
+        }
+        
+        int next = prev + k;
+        if(next < 10){
+            dfs(n, k,(current * 10) + next, i+1, next, result);
+        }
+        next = prev - k;
+        if(k != 0 && next >= 0){
+            dfs(n,k, (current * 10) + next, i+1, next, result);
+        }
+    }
+}
