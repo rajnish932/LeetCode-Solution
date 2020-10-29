@@ -1,0 +1,38 @@
+package com.lamresearch.dtocm.cProgramming.string;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class LetterCasePermutation {
+    public static void main(String []arg){
+        String S = "a1B2";
+        System.out.println(letterCasePermute(S));
+    }
+    public static List<String> letterCasePermute(String S) {
+        List<String> result = new ArrayList();
+        findAllPermutation(result, S, 0);
+        return result;
+
+
+    }
+    public static void findAllPermutation(List<String> result, String S, int start){
+        result.add(S);
+
+        for(int i = start;i<S.length();i++){
+            char []ch = S.toCharArray();
+            if(Character.isLetter(S.charAt(i))){
+
+                if(Character.isUpperCase(S.charAt(i)))
+                {
+                    ch[i] = Character.toLowerCase(S.charAt(i));
+                    findAllPermutation(result, String.valueOf(ch), i+1);
+                }
+                else{
+                    ch[i] = Character.toUpperCase(S.charAt(i));
+                    findAllPermutation(result, String.valueOf(ch), i+1);
+                }
+            }
+        }
+    }
+}
+
