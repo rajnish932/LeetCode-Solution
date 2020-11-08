@@ -1,0 +1,76 @@
+class Solution {
+    public int minimumEffortPath(int[][] heights) {
+      int row = heights.length;
+        int col = heights[0].length;
+        
+        int end = Integer.MIN_VALUE;
+        int start = 0;
+        
+        // finding the max element
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                end = Math.max(end, heights[i][j]);
+            }
+        }
+        
+        int ans = Integer.MAX_VALUE;
+        
+        // binary search
+        while(start <= end) {       
+            // possible effort
+            int mid = start + (end - start)/2;
+            
+            // An array to check if the cell is already visited or not
+            int[][] visited = new int[row][col];
+            
+            // If there exists a path with this mid update the ans and check in the left region;
+            if(DFS(heights, 0, 0, mid, visited)){
+                ans = Math.min(ans, mid);
+                end = mid - 1;
+            }
+            // Else check in the right region
+            else {
+                start = mid + 1;
+            }
+        }
+        
+        return ans;
+        
+    }
+    
+    static boolean DFS(int[][] arr, int row, int col, int mid, int[][] visited){
+        
+        // destination cell
+        if(row == arr.length - 1 && col == arr[0].length - 1){
+            return true;
+        }
+        boolean poss = false;
+        // mark current cell as visited
+        visited[row][col] = 1;
+		
+		// up
+        if(row > 0 && visited[row - 1][col] == 0 && Math.abs(arr[row-1][col] - arr[row][col]) <= mid){
+            poss = poss || DFS(arr, row - 1, col, mid, visited);
+        }
+        
+        // down
+        if(row < arr.length - 1 && visited[row + 1][col] == 0 
+           && Math.abs(arr[row + 1][col] - arr[row][col]) <= mid){   
+            poss = poss || DFS(arr, row + 1, col, mid, visited);
+        }
+        
+        // left
+        if(col > 0 && visited[row][col - 1] == 0 && Math.abs(arr[row][col - 1] - arr[row][col]) <= mid){
+            poss = poss || DFS(arr, row, col - 1, mid, visited);
+        }
+        
+        // right
+        if(col < arr[0].length - 1 && visited[row][col + 1] == 0 
+           && Math.abs(arr[row][col + 1] - arr[row][col]) <= mid){
+            poss = poss || DFS(arr, row, col + 1, mid, visited);
+        }
+        
+        // return if possible
+        return poss;
+    }   
+}
