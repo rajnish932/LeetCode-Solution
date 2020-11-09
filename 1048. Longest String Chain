@@ -31,6 +31,7 @@ class Solution {
         if (max == maxPossible)
             return;
         max = Math.max(max, length);
+	
 		
         for (int i = curr; i < words.length; i++) {
             if (prev != -1 && words[i].length() - words[prev].length() > 1)
