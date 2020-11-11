@@ -17,7 +17,8 @@ class Solution {
                 arr[(int)(c - 'a')]++;
             list.add(arr);
         }
-        
+	
+	
         maxPossible = words[words.length - 1].length() - words[0].length() + 1;
         visited[0] = true;
         findMax(-1, 0, 0);
