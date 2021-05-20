@@ -1,0 +1,34 @@
+class Solution {
+   
+        public List<String> restoreIpAddresses(String s) {
+           List<String> returnList = new ArrayList();
+        buildIps(returnList, s, 0, 0);
+        return returnList;
+    }
+    
+    public void buildIps(List<String> returnList, String s, int i, int dots){
+        if(i < s.length() && valid(s,i,s.length()) && dots == 3){
+            returnList.add(s);
+            return;
+        }else if(i == s.length() || dots >= 4){
+            return;
+        }
+        int j = i+1;
+        while(j < s.length() && valid(s,i,j)){
+            s = s.substring(0,j) + "." + s.substring(j);
+            buildIps(returnList, s, j+1, dots+1);
+            s = s.substring(0,j) + s.substring(j+1);
+            j++;
+        }
+    }
+    
+    public boolean valid(String s,int i, int j){
+        String tmp= s.substring(i,j);
+        if(tmp.length() > 3 || tmp.charAt(0) == '0' && tmp.length() > 1) return false; 
+        if(Integer.valueOf(tmp) <= 255){
+            return true;
+        }
+        return false;
+    }
+    }
+            
