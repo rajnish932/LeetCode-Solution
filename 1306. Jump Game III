@@ -25,9 +25,7 @@ class Solution {
                 seen[rightmove] = 1;
                if(arr[rightmove] == 0 ) 
                 return true;
-             }
-            
-            
+             }  
         }
         return false;
         
