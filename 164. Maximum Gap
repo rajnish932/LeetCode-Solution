@@ -7,7 +7,6 @@ class Solution {
             if(maxGap < Math.abs(nums[i-1]-nums[i]))
                 maxGap = Math.abs(nums[i-1]-nums[i]);
         }
-        return maxGap;
-        
+        return maxGap    
     }
 }
