@@ -15,7 +15,6 @@ class Solution {
                 time -= maxHeap.poll();
             }
         }
-        return maxHeap.size();
-        
+        return maxHeap.size();     
     }
 }
