@@ -3,6 +3,7 @@ class Solution {
         Arrays.sort(courses, (a, b) -> a[1] - b[1]);
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
         // The current time
+        
         int time = 0;
         for (int[] course : courses) {
             // Add current course duration to current time
