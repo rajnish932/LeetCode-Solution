@@ -1,0 +1,51 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] pre) {
+        List<Integer> [] adjList ; //= new ArrayList[numCourses];
+        
+        /*First, I have to build a graph*/
+        
+        /*Initialization graph ds*/
+        
+        adjList  = new ArrayList[numCourses];
+        
+        for (int i=0;i<numCourses; i++) {
+            adjList[i] = new ArrayList();
+        }
+        
+        //inserting values in graph
+        for (int [] req:pre) {
+            adjList[req[1]].add(req[0]);
+        }
+                    
+                   
+        Set<Integer> visited = new HashSet();
+        for (int i=0; i<numCourses; i++) {
+            if (!visited.contains(i)) {
+                if (isCyclic(i, adjList, visited, new HashSet()))
+                    return false;
+            }
+        }
+        
+        return true;
+    }
+                    
+    boolean isCyclic(int course, List<Integer> [] adjList, Set<Integer> visited, Set<Integer> visiting) {
+        visiting.add(course);
+        
+        for (int neighbour: adjList[course]) {
+            if (!visited.contains(neighbour)) {
+                 
+                if (visiting.contains(neighbour)) {
+                    return true;
+                }
+                
+                if (isCyclic(neighbour, adjList, visited, visiting)) {
+                    return true;
+                }
+            }
+        }
+        
+        visited.add(course);
+        return false;
+    }
+}
