@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class EventualSafeNodes {
+    public static void main(String... arg) {
+        int [][]graph  = {{1,2},{2,3},{5},{0},{5},{},{}};
+        System.out.println(eventualSafeNodes(graph));
+    }
+
+    public static List<Integer> eventualSafeNodes(int[][] graph) {
+        List<Integer> list = new ArrayList<>();
+        if(graph == null || graph.length == 0) return list;
+        int n = graph.length;
+        List<Integer>[] reversedGraph = new List[n];
+        int[] indegree = new int[n];
+        for(int i = 0; i < n; i++){
+            reversedGraph[i] = new ArrayList<>();
+        }
+        //reverse the edges and rebuild the graph
+        for(int i = 0; i < n; i++){
+            for(int nei : graph[i]){
+                reversedGraph[nei].add(i);
+            }
+        }
+        //count each node's indegree
+        for(int i = 0; i < n; i++){
+            for(int nei : reversedGraph[i]){
+                indegree[nei]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        //push all nodes that have 0 indegree to the queue
+        for(int i = 0; i < n; i++){
+            if(indegree[i] == 0){
+                q.add(i);
+            }
+        }
+        //topological sort
+        while(!q.isEmpty()){
+            int temp = q.poll();
+            for(int nei : reversedGraph[temp]){
+                indegree[nei]--;
+                if(indegree[nei] == 0){
+                    q.add(nei);
+                }
+            }
+        }
+        //nodes that have 0 indegree -> eventually safe
+        for(int i = 0; i < n; i++){
+            if(indegree[i] == 0){
+                list.add(i);
+            }
+        }
+        return list;
+    }
+}
