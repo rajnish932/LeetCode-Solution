@@ -1,0 +1,25 @@
+import java.util.HashSet;
+import java.util.Set;
+
+public class LongestNiceSubstring {
+    public static void main(String []arg) {
+        String str = "YazaAay";
+        System.out.println(niceSubstring(str));
+    }
+    private static String niceSubstring(String str) {
+        Set<Character> characterSet = new HashSet<>();
+        for(int i =0; i<str.length(); i++) {
+            characterSet.add(str.charAt(i));
+        }
+        for(int i =0; i<str.length(); i++) {
+          if(characterSet.contains(Character.toUpperCase(str.charAt(i))) &&
+                  characterSet.contains(Character.toLowerCase(str.charAt(i)))) {
+              continue;
+          }
+          String str1 = niceSubstring(str.substring(0,i));
+          String str2 = niceSubstring(str.substring(i+1));
+          return str1.length() >= str2.length() ? str1 : str2;
+        }
+       return str;
+    }
+}
