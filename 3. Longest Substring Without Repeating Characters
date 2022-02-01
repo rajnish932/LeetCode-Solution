@@ -1,0 +1,22 @@
+class Solution {
+    public int lengthOfLongestSubstring(String str) {
+        
+     int result = 0;
+        int left = 0;
+        int right =0;
+        int countFrequency[] = new int[128];
+        while(right < str.length()) {
+            char r = str.charAt(right);
+            countFrequency[r]++;
+            
+            while(countFrequency[r] > 1) {
+                char l = str.charAt(left);
+                countFrequency[l]--;
+                left++;
+            }
+            result = Math.max(result, right - left +1);
+            right++;
+        }
+        return result;
+    }
+}
