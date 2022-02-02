@@ -1,0 +1,51 @@
+class Solution {
+    public int subarraysWithKDistinct(int[] arr, int k) {
+  
+		return exactlyK(arr, k);
+	}
+        private static int exactlyK(int arr[], int k) {
+ 
+		// Count of subarrays with exactly k distinct
+		// elements is equal to the difference of the
+		// count of subarrays with at most K distinct
+		// elements and the count of subararys with
+		// at most (K - 1) distinct elements
+		return (atMostK(arr, k) - atMostK(arr, k - 1));
+	}
+    // Function to return the count of subarrays
+	// with at most K distinct elements using
+	// the sliding window technique
+	private static int atMostK(int arr[], int k) {
+ 
+		// To store the result
+		int count = 0;
+ 
+		// Left boundary of window
+		int left = 0;
+ 
+		// Map to keep track of number of distinct
+		// elements in the current window
+		HashMap<Integer, Integer> map = new HashMap<>();
+ 
+		// Loop to calculate the count
+		for(int right =0; right < arr.length; right++){
+ 
+			// Calculating the frequency of each
+			// element in the current window
+			map.put(arr[right], map.getOrDefault(arr[right], 0) + 1);
+ 
+			// Shrinking the window from left if the
+			// count of distinct elements exceeds K
+			while (map.size() > k) {
+				map.put(arr[left], map.get(arr[left]) - 1);
+				if (map.get(arr[left]) == 0) map.remove(arr[left]);
+				left++;
+			}
+ 
+			// Adding the count of subarrays with at most
+			// K distinct elements in the current window
+			count += right - left + 1;
+		}
+		return count;
+	}
+}
