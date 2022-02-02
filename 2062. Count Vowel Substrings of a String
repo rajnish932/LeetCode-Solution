@@ -1,0 +1,31 @@
+import java.util.HashSet;
+import java.util.Set;
+
+public class CountVowelSubstringsOfAString {
+    public static void main(String []arg) {
+        String str = "aeiouu";
+        System.out.println(countVowelSubstrings(str));
+    }
+    public static int countVowelSubstrings(String str) {
+        int n =  str.length();
+        int count = 0;
+        Set<Character> characterSet = new HashSet<>();
+        for(int i =0;i <n-4; i++) {
+            characterSet.clear();
+            int j = i;
+            while(j < n) {
+                char ch = str.charAt(j);
+                if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                    characterSet.add(ch);
+                    if(characterSet.size() == 5) {
+                        count++;
+                    }
+                    j++;
+                }
+                else break;
+
+            }
+        }
+        return count;
+    }
+}
