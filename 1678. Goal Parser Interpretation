@@ -1,0 +1,21 @@
+class Solution {
+    public String interpret(String command) {
+       int index = 0;
+        StringBuffer sb = new StringBuffer();
+        while(index < command.length()){
+            char ch = command.charAt(index);
+            if (ch == '('){
+            }else if ( ch == 'G'){
+                sb.append("G");
+            }else if (ch == 'a'){
+                sb.append("al");
+                index += 2;
+            }else if (ch == ')'){
+                sb.append("o");
+            }
+            index++;
+        }
+        return sb.toString();
+        
+    }
+}
