@@ -1,0 +1,23 @@
+class Solution {
+    public int minimumDeletions(String s) {
+        int counta = 0, countb = 0;
+        for (char c : s.toCharArray()) {
+            if (c == 'a') counta++;
+            if (c == 'b') countb++;
+        }
+       
+        int result = counta;
+        int lb = 0;
+        for (int i = 0; i < s.length(); ++i) {
+            if (s.charAt(i) == 'a') {
+                counta--;
+            } else {
+                lb++;
+            }
+            result = Math.min(result, lb + counta);
+        }
+
+        return result;
+        
+    }
+}
