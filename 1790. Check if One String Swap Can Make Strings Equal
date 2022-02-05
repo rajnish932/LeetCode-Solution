@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class CheckIfOneStringSwapCanMakeStringsEqual {
+    public static void main(String arg[]) {
+        String s1 = "abcd";
+        String s2 = "dcba";
+        System.out.println(areAlmostEqual(s1, s2));
+    }
+
+    public static boolean areAlmostEqual(String s1, String s2) {
+        // case: input Strings are not same length
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+
+        // case: 0 mismatches
+        if (s1.equals(s2)) {
+            return true;
+        }
+
+        // let's count the number of mismatches
+        List<Integer> indicesOfMismatches = new ArrayList<>();
+        for (int i = 0; i < s1.length(); ++i) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                indicesOfMismatches.add(i);
+            }
+        }
+
+        // case: 1 mismatch or more than 2
+        if (indicesOfMismatches.size() != 2) {
+            return false;
+        }
+
+        // check whether swapping chars would make Strings equal
+        if ((s1.charAt(indicesOfMismatches.get(0)) == s2.charAt(indicesOfMismatches.get(1))) &&
+                (s1.charAt(indicesOfMismatches.get(1)) == s2.charAt(indicesOfMismatches.get(0)))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
