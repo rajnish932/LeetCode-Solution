@@ -1,0 +1,13 @@
+class Solution {
+    public boolean areOccurrencesEqual(String s) {
+       int countChar[] = new int[26];
+        for(int i =0; i<s.length(); i++) {
+            countChar[s.charAt(i) - 'a']++;
+        }
+        int val = countChar[s.charAt(0) - 'a'];
+        for(int i = 0;i < s.length(); i++) {
+            if(val != countChar[s.charAt(i) - 'a']) return false;
+        }
+        return true;
+    }
+}
