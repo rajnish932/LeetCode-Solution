@@ -1,0 +1,46 @@
+class Solution {
+    public long smallestNumber(long nums) {
+        int []freq = new int[10];
+      boolean  pos = nums>0;
+      nums = Math.abs(nums);
+      while(nums > 0) {
+          long remainer = nums % 10;
+          freq[(int)remainer]++;
+          nums = nums/10;
+      }
+      long result = 0;
+      if(pos) {
+          for(int i = 1;i<=9;i++) {
+              if(freq[i] != 0) {
+                  result =i;
+                  freq[i]--;
+                 break;
+              }
+          }
+          // arrange all remaining digits
+          for (int i =0;i<=9;i++) {
+              while(freq[i]-- != 0)
+              {
+                  result = result *10 +i;
+              }
+          }
+      } 
+        else {
+          for(int i =9;i>=1;i--) {
+              if(freq[i] != 0) {
+                  result = i;
+                  freq[i]--;
+                  break;
+              }
+          }
+          for(int i =9;i>=0;i--) {
+             while(freq[i]-- != 0) {
+                 result = result *10 +i;
+             } 
+          }
+          result = -result;  
+      }
+      return result;
+    }
+}
+ 
